@@ -1,11 +1,15 @@
 const DEFAULT_SIZE = 16;
 const VALID_INPUT_SIZE = /^([0-9]|[1-7][0-9])$/;
 const CONTAINER_SIZE = 400;
+const INITIAL_OPACITY = 0.1;
 let container = document.querySelector(".container");
 
 const gridMouseOver = (event) => {
-  event.target.style.backgroundColor = "rgba(0,0,0,0.5)";
-  event.target.style.filter = "blur(0.5px)";
+  if (event.target.style.opacity < 1) {
+    event.target.style.backgroundColor = `rgb(0,0,0)`;
+    event.target.style.opacity =
+      Number(event.target.style.opacity) + INITIAL_OPACITY;
+  }
 };
 
 const createGrid = (width, height, containerSize) => {
@@ -24,6 +28,8 @@ const createGrid = (width, height, containerSize) => {
   }
 };
 
+createGrid(DEFAULT_SIZE, DEFAULT_SIZE, CONTAINER_SIZE);
+
 const resizeGrid = () => {
   let size = prompt("Please enter the size of grid");
   let allGrids = document.querySelectorAll(".grid");
@@ -39,8 +45,6 @@ const resizeGrid = () => {
     createGrid(DEFAULT_SIZE, DEFAULT_SIZE, CONTAINER_SIZE);
   }
 };
-
-createGrid(DEFAULT_SIZE, DEFAULT_SIZE, CONTAINER_SIZE);
 
 let button = document.querySelector("button");
 button.addEventListener("click", resizeGrid);

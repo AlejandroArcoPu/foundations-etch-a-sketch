@@ -62,3 +62,15 @@ button {
 button:hover {
   background-color: rgba(255, 217, 0, 0.7);
 }
+
+legend {
+  color: red;
+}
+
+fieldset {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border: 3px solid black;
+  background-color: rgba(255, 217, 0, 1);
+}
