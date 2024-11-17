@@ -2,11 +2,23 @@ const DEFAULT_SIZE = 16;
 const VALID_INPUT_SIZE = /^([0-9]|[1-7][0-9])$/;
 const CONTAINER_SIZE = 400;
 const INITIAL_OPACITY = 0.1;
+let colorMode = "black";
 let container = document.querySelector(".container");
+
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
 
 const gridMouseOver = (event) => {
   if (event.target.style.opacity < 1) {
-    event.target.style.backgroundColor = `rgb(0,0,0)`;
+    if (colorMode === "black") {
+      event.target.style.backgroundColor = "rgb(0,0,0)";
+    } else {
+      event.target.style.backgroundColor = `rgb(${getRandomInt(
+        255
+      )},${getRandomInt(255)},${getRandomInt(255)})`;
+    }
+
     event.target.style.opacity =
       Number(event.target.style.opacity) + INITIAL_OPACITY;
   }
@@ -46,5 +58,12 @@ const resizeGrid = () => {
   }
 };
 
-let button = document.querySelector("button");
-button.addEventListener("click", resizeGrid);
+let buttonSquares = document.querySelector("button");
+buttonSquares.addEventListener("click", resizeGrid);
+
+let radioButtons = document.querySelectorAll('input[name="mode"]');
+radioButtons.forEach((element) => {
+  element.addEventListener("change", (e) => {
+    colorMode = e.target.value;
+  });
+});
